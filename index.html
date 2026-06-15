@@ -2,20 +2,30 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মানিকপীর হাফেজ্জীয়া মাদ্রাসা - ড্যাশবোর্ড</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>মানিকপীর হাফেজ্জীয়া মাদ্রাসা - ড্যাশবোর্ড</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         html, body {
             margin: 0;
             padding: 0;
             overflow: hidden;
             height: 100%;
             width: 100%;
-            background-color: #0f172a; /* আপনার অ্যাপের ব্যাকগ্রাউন্ড কালারের সাথে মিলিয়ে দিতে পারেন */
+            background-color: #0f172a; 
+        }
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            -webkit-overflow-scrolling: touch; /* আইওএস/আইফোন মোবাইলের স্মুথ স্ক্রলিং এর জন্য */
         }
         iframe {
             position: absolute;
-            top: -55px; /* গুগলের ব্যানারটি স্ক্রিনের ওপরে লুকিয়ে ফেলার জন্য */
+            top: -55px; 
             left: 0;
             width: 100%;
             height: calc(100% + 55px); 
@@ -25,7 +35,25 @@
 </head>
 <body>
 
-    <iframe src="https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec"></iframe>
+    <div class="iframe-container">
+        <iframe 
+            id="dashboard-frame"
+            src="https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec" 
+            allow="autoplay; encrypted-media" 
+            loading="eager">
+        </iframe>
+    </div>
+
+    <script>
+        // মোবাইল ব্রাউজারে আইফ্রেমের ডেটা লোড নিশ্চিত করার জন্য ছোট একটি ট্রিক
+        window.addEventListener('load', function() {
+            var iframe = document.getElementById('dashboard-frame');
+            if (iframe) {
+                // পেজ লোড হওয়ার পর আইফ্রেমটিকে আরেকবার রিফ্রেশ করবে যেন মোবাইল ক্যাশ ক্লিয়ার হয়ে ডেটা আসে
+                iframe.src = iframe.src;
+            }
+        });
+    </script>
 
 </body>
 </html>
