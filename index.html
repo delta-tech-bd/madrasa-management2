@@ -11,46 +11,50 @@
         html, body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            height: 100%;
             width: 100%;
-            background-color: #0f172a; 
+            height: 100%;
+            background-color: #0f172a;
+            overflow: hidden;
         }
-        .iframe-container {
+        /* মূল কন্টেইনার যা মোবাইল স্ক্রিনকে লক করে রাখবে */
+        .dashboard-wrapper {
             position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            -webkit-overflow-scrolling: touch; /* আইওএস/আইফোন মোবাইলের স্মুথ স্ক্রলিং এর জন্য */
+            -webkit-overflow-scrolling: touch;
         }
+        /* আইফ্রেম রেসপনসিভ সেটিংস */
         iframe {
-            position: absolute;
-            top: -55px; 
-            left: 0;
+            display: block;
             width: 100%;
-            height: calc(100% + 55px); 
+            height: calc(100% + 55px); /* গুগলের ওপরে থাকা কালো বারটি সরানোর জন্য */
+            position: absolute;
+            top: -55px;
+            left: 0;
             border: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="iframe-container">
+    <div class="dashboard-wrapper">
         <iframe 
-            id="dashboard-frame"
-            src="https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec" 
-            allow="autoplay; encrypted-media" 
-            loading="eager">
+            id="app-frame"
+            src="https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec"
+            allow="cross-origin-isolated">
         </iframe>
     </div>
 
     <script>
-        // মোবাইল ব্রাউজারে আইফ্রেমের ডেটা লোড নিশ্চিত করার জন্য ছোট একটি ট্রিক
-        window.addEventListener('load', function() {
-            var iframe = document.getElementById('dashboard-frame');
-            if (iframe) {
-                // পেজ লোড হওয়ার পর আইফ্রেমটিকে আরেকবার রিফ্রেশ করবে যেন মোবাইল ক্যাশ ক্লিয়ার হয়ে ডেটা আসে
-                iframe.src = iframe.src;
+        // মোবাইল ব্রাউজারকে ফোর্স রিফ্রেশ করিয়ে ডেটা লোড করার ট্রিক
+        window.addEventListener('DOMContentLoaded', function() {
+            var frame = document.getElementById('app-frame');
+            if (frame) {
+                // ২00 মিলিসেকেন্ড পর ফ্রেমটি আবার রিলোড হবে যেন ক্যাশ ব্লক ভেঙে যায়
+                setTimeout(function() {
+                    frame.src = frame.src;
+                }, 200);
             }
         });
     </script>
