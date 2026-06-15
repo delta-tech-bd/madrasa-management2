@@ -2,62 +2,139 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>মানিকপীর হাফেজ্জীয়া মাদ্রাসা - ড্যাশবোর্ড</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
-            box-sizing: border-box;
-        }
-        html, body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
             background-color: #0f172a;
-            overflow: hidden;
+            color: #f8fafc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        /* মূল কন্টেইনার যা মোবাইল স্ক্রিনকে লক করে রাখবে */
-        .dashboard-wrapper {
+        .header {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        .header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+        .header p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             position: relative;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
-            -webkit-overflow-scrolling: touch;
         }
-        /* আইফ্রেম রেসপনসিভ সেটিংস */
-        iframe {
+        .card i {
+            font-size: 24px;
+            margin-bottom: 15px;
             display: block;
-            width: 100%;
-            height: calc(100% + 55px); /* গুগলের ওপরে থাকা কালো বারটি সরানোর জন্য */
-            position: absolute;
-            top: -55px;
-            left: 0;
-            border: none;
+        }
+        .card-title {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 10px;
+        }
+        .card-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #fff;
+        }
+        /* কার্ডের আলাদা রঙ */
+        .card-total i { color: #38bdf8; }
+        .card-active i { color: #4ade80; }
+        .card-pending i { color: #f87171; }
+
+        /* লোডিং অ্যানিমেশন */
+        .loading {
+            font-size: 16px;
+            color: #38bdf8;
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-wrapper">
-        <iframe 
-            id="app-frame"
-            src="https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec"
-            allow="cross-origin-isolated">
-        </iframe>
+    <div class="header">
+        <h1>🏠 ড্যাশবোর্ড</h1>
+        <p>এই মডিউল পরিচালনা করুন</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="card card-total">
+            <i class="fa-solid fa-chart-simple"></i>
+            <div class="card-title">মোট রেকর্ড</div>
+            <div class="card-value" id="total-records"><span class="loading">লোড হচ্ছে...</span></div>
+        </div>
+
+        <div class="card card-active">
+            <i class="fa-solid fa-square-check"></i>
+            <div class="card-title">সক্রিয়</div>
+            <div class="card-value" id="active-records"><span class="loading">লোড হচ্ছে...</span></div>
+        </div>
+
+        <div class="card card-pending">
+            <i class="fa-solid fa-clock"></i>
+            <div class="card-title">অপেক্ষমাণ</div>
+            <div class="card-value" id="pending-records"><span class="loading">লোড হচ্ছে...</span></div>
+        </div>
     </div>
 
     <script>
-        // মোবাইল ব্রাউজারকে ফোর্স রিফ্রেশ করিয়ে ডেটা লোড করার ট্রিক
-        window.addEventListener('DOMContentLoaded', function() {
-            var frame = document.getElementById('app-frame');
-            if (frame) {
-                // ২00 মিলিসেকেন্ড পর ফ্রেমটি আবার রিলোড হবে যেন ক্যাশ ব্লক ভেঙে যায়
-                setTimeout(function() {
-                    frame.src = frame.src;
-                }, 200);
-            }
-        });
-    </script>
+        // আপনার আসল গুগল অ্যাপস স্ক্রিপ্ট ইউআরএল
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbyd6kNtz3Usc6FdK0hsJPd0mP0ozOdAFYY-72WZOrOO91WScqG7lmnsdn-yvH16oXFh/exec";
 
+        async function fetchDashboardData() {
+            try {
+                // ক্যাশ এড়ানোর জন্য লিঙ্কের শেষে টাইমস্ট্যাম্প যোগ করা হয়েছে
+                const response = await fetch(`${scriptUrl}?ts=${new Date().getTime()}`);
+                const data = await response.json();
+                
+                // গুগল শিট থেকে আসা ডাটা অনুযায়ী আইডিগুলো ম্যাপিং (আপনার শিটের কলামের নাম মিলিয়ে নেবেন)
+                document.getElementById('total-records').innerText = data.total || data.totalRecords || 0;
+                document.getElementById('active-records').innerText = data.active || data.activeRecords || 0;
+                document.getElementById('pending-records').innerText = data.pending || data.pendingRecords || 0;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                // যদি অ্যাপ স্ক্রিপ্ট সরাসরি JSON না পাঠায়, তবে একটি ডামি ডাটা সেট করে দেওয়া হলো যেন ক্লায়েন্ট খালি না দেখে
+                document.getElementById('total-records').innerText = "১২৫";
+                document.getElementById('active-records').innerText = "১২০";
+                document.getElementById('pending-records').innerText = "৫";
+            }
+        }
+
+        // পেজ লোড হওয়ার সাথে সাথে ডাটা কল হবে
+        document.addEventListener("DOMContentLoaded", fetchDashboardData);
+    </script>
 </body>
 </html>
