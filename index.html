@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>মাদ্রাসা ম্যানেজমেন্ট সিস্টেম</title>
 
+    <!-- ফেভিকন আইকন -->
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1R1Ps51EBCs_NQDn7YsmXFDHuHnK5S5mS=w1000" />
     <link href="https://fonts.googleapis.com/css2?family=SolaimanLipi&display=swap" rel="stylesheet" />
     
@@ -176,6 +177,7 @@
 
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card" id="loginCardContainer">
+            <!-- আপনার দেওয়া লোগো লিংকটি এখানে সঠিকভাবে সেট করা হয়েছে -->
             <img src="https://lh3.googleusercontent.com/d/19xL7quoZwFVMc39HW3po7PhbD3t5w-ES=w1000" alt="Madrasa Logo" class="madrasa-logo" />
             <h2>লাইসেন্স ভেরিফিকেশন</h2>
             <p>সফটওয়্যারটি ব্যবহার করতে অনুগ্রহ করে ইউজারনেম এবং পাসওয়ার্ড দিন</p>
@@ -201,7 +203,7 @@
     </div>
 
     <script>
-        // 🎯 আপনার নতুন গুগল অ্যাপস স্ক্রিপ্টের ডেপ্লয়মেন্ট ইউআরএল (URL)
+        // গুগল অ্যাপস স্ক্রিপ্টের ডেপ্লয়মেন্ট ইউআরএল (URL)
         var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbxT4Bkv5oTpogXED7aH8h4dzsaSIi0LHhZMK8AXTiohf65H4rXYhkGcKX0GGY96-B7J/exec";
 
         window.addEventListener('DOMContentLoaded', function() {
@@ -252,7 +254,6 @@
                     if (data && data.success) {
                         btn.innerText = "🎉 লগইন সফল! ড্যাশবোর্ড ওপেন হচ্ছে...";
                         
-                        // সাকসেস হলে মূল ড্যাশবোর্ড লোড করার প্যারামিটার পাঠানো হচ্ছে
                         document.getElementById('appIframe').src = GOOGLE_SCRIPT_API + "?loadApp=true"; 
                         document.getElementById('loginOverlay').style.display = 'none';
                         document.getElementById('mainAppContainer').style.display = 'block';
@@ -274,6 +275,7 @@
         document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSecureLogin(); } });
     </script>
 
+    <!-- সিকিউরিটি স্ক্রিপ্ট (ರাইট ক্লিক এবং ইন্সপেক্ট এলিমেন্ট ব্লক) -->
     <script>
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.onkeydown = function(e) {
