@@ -119,6 +119,29 @@
             background: #ffffff;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); 
         }
+
+        /* পাসওয়ার্ড শো/হাইড টগল */
+        .password-wrapper {
+            position: relative;
+        }
+        .password-wrapper input {
+            padding-right: 46px;
+        }
+        .toggle-pass-btn {
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 4px;
+            color: #64748b;
+            user-select: none;
+        }
+        .toggle-pass-btn:hover { color: #2563eb; }
         
         /* আধুনিক বাটন ডিজাইন */
         .login-btn { 
@@ -237,7 +260,10 @@
             
             <div class="input-group">
                 <label for="licenseKey">পাসওয়ার্ড</label>
-                <input type="password" id="licenseKey" placeholder="যেমন: aliahmad@94" required />
+                <div class="password-wrapper">
+                    <input type="password" id="licenseKey" placeholder="যেমন: aliahmad@94" required />
+                    <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()" aria-label="পাসওয়ার্ড দেখুন/লুকান">👁️</button>
+                </div>
             </div>
             
             <button class="login-btn" id="loginBtn" onclick="performSecureLogin()">🔑 যাচাই ও সক্রিয় করুন</button>
@@ -283,6 +309,19 @@
             document.getElementById('appIframe').src = GOOGLE_SCRIPT_API + "?loadApp=true";
             document.getElementById('mainAppContainer').style.display = 'block';
             document.getElementById('logoutBtn').style.display = 'block';
+        }
+
+        // পাসওয়ার্ড শো/হাইড টগল করার ফাংশন
+        function togglePasswordVisibility() {
+            var pwField = document.getElementById('licenseKey');
+            var btn = document.getElementById('togglePassBtn');
+            if (pwField.type === 'password') {
+                pwField.type = 'text';
+                btn.innerText = '🙈';
+            } else {
+                pwField.type = 'password';
+                btn.innerText = '👁️';
+            }
         }
 
         window.addEventListener('DOMContentLoaded', function() {
@@ -362,12 +401,12 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.success) {
-                        btn.innerText = "🎉 লগইন সফল! ড্যাশবোর্ড ওপেন হচ্ছে...";
-
                         // সফল লগইনের সেশন-টোকেন সেভ রাখা হচ্ছে — পরের বার এই
-                        // পেজে এলে আর ইউজার/পাসওয়ার্ড লাগবে না
+                        // পেজে এলে আর ইউজার/পাসওয়ার্ড লাগবে না।
+                        // (নোট: এখানে ইচ্ছাকৃতভাবে বাটনের লেখা পরিবর্তন করা
+                        // হচ্ছে না, যাতে "ড্যাশবোর্ড ওপেন হচ্ছে" জাতীয় কোনো
+                        // লেখা রিফ্রেশ/লগইনের সময় ফ্ল্যাশ করে দেখা না যায়।)
                         if (data.session) saveSession(data.session);
-
                         openApp();
                     } else {
                         showMsg("❌ " + (data.error ? data.error : "ভুল ইউজার আইডি অথবা পাসওয়ার্ড!"));
