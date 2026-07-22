@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="bn"> 
-<head> 
+<html lang="bn">
+<head>   
     <meta charset="UTF-8" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" /> 
-    <title>মাদ্রাসা ম্যানেজমেন্ট সিস্টেম</title>    
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>মাদ্রাসা ম্যানেজমেন্ট সিস্টেম</title> 
+   
     <!-- ফেভিকন আইকন --> 
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1B-tFRZng9hiqmoHVOnioQ_EdWt1vJ6h9=w1000" />
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/19lUSAdtY0qnUtoVPmmPqhbVaMtMIzYsh=w1000" />
     <link href="https://fonts.googleapis.com/css2?family=SolaimanLipi&display=swap" rel="stylesheet" />
     
     <style>
-        /* গ্লোবাল স্টাইল এবং ফন্ট ফিক্স - ১০০% স্ক্রিন কভারেজ */ 
+        /* গ্লোবাল স্টাইল এবং ফন্ট ফিক্স */ 
         * { 
             box-sizing: border-box; 
-            font-family: 'SolaimanLipi', sans-serif !important;  
+            font-family: 'SolaimanLipi', sans-serif !important; 
         }
         html, body { 
-            margin: 0;     
+            margin: 0; 
             padding: 0; 
-            height: 100%; 
-            width: 100%; 
+            height: 100vh; 
+            width: 100vw; 
             overflow: hidden; 
-            background: #ffffff; /* অ্যাপের কালারের সাথে মিল রেখে পুরো সাদা থিম */
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 45%, #e6edf5 100%);
             color: #1e293b; 
         }
         
-        /* ব্যাকগ্রাউন্ড ওভারলে ও কার্ড ডিজাইন (লাইট থিম) */
+        /* ব্যাকগ্রাউন্ড ওভারলে ও কার্ড ডিজাইন */
         .login-overlay { 
             position: fixed; 
             top: 0; 
@@ -37,159 +37,204 @@
             align-items: center; 
             z-index: 99999; 
             padding: 20px; 
-            background: #f8fafc;
         }
         .login-overlay.show { display: flex; }
         .login-card { 
-            background: #ffffff; 
-            padding: 40px 30px; 
+            background: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 40px 35px; 
             border-radius: 20px; 
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05); 
+            box-shadow: 0 20px 45px -15px rgba(30, 64, 175, 0.18), 0 4px 12px rgba(15, 23, 42, 0.06); 
             width: 100%; 
-            max-width: 420px; 
+            max-width: 440px; 
             text-align: center; 
-            border: 1px solid #e2e8f0; 
+            border: 1px solid rgba(203, 213, 225, 0.6); 
+            transition: transform 0.3s ease;
         }
         .madrasa-logo { 
-            width: 90px; 
-            height: 90px; 
-            margin-bottom: 16px; 
+            width: 95px; 
+            height: 95px; 
+            margin-bottom: 20px; 
+            filter: drop-shadow(0px 8px 16px rgba(15, 23, 42, 0.15)); 
             object-fit: contain; 
         }
         .login-card h2 { 
-            margin: 0 0 8px 0; 
-            font-size: 24px; 
-            font-weight: 700;
-            color: #0f172a; 
+            margin: 0 0 10px 0; 
+            font-size: 26px; 
+            font-weight: 600;
+            color: #1d4ed8; 
+            letter-spacing: 0.5px;
         }
         .login-card p { 
-            margin: 0 0 24px 0; 
+            margin: 0 0 25px 0; 
             color: #64748b; 
-            font-size: 14px; 
+            font-size: 15px; 
             line-height: 1.5;
         }
         
         /* অ্যালার্ট ও এরর মেসেজ */
         .error-msg { 
-            background: #fef2f2; 
-            border: 1px solid #fecaca; 
+            background: rgba(239, 68, 68, 0.08); 
+            border: 1px solid rgba(239, 68, 68, 0.25); 
             color: #dc2626; 
             padding: 12px; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             font-size: 14px; 
             margin-bottom: 20px; 
             display: none; 
             text-align: center; 
+            animation: fadeIn 0.3s ease;
         }
         
         /* ইনপুট গ্রুপ স্টাইল */
         .input-group { 
-            margin-bottom: 18px; 
+            margin-bottom: 22px; 
             text-align: left; 
         }
         .input-group label { 
             display: block; 
-            margin-bottom: 6px; 
+            margin-bottom: 8px; 
             font-size: 14px; 
-            color: #334155; 
-            font-weight: 600;
+            color: #475569; 
+            font-weight: 500;
         }
         .input-group input { 
             width: 100%; 
-            padding: 12px 16px; 
+            padding: 14px 18px; 
             background: #f8fafc; 
             border: 1px solid #cbd5e1; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             color: #0f172a; 
-            font-size: 15px; 
+            font-size: 16px; 
             outline: none; 
-            transition: all 0.2s ease; 
+            transition: all 0.25s ease; 
         }
         .input-group input::placeholder {
             color: #94a3b8;
+            font-family: 'SolaimanLipi', sans-serif;
         }
         .input-group input:focus { 
-            border-color: #0284c7; 
+            border-color: #2563eb; 
             background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); 
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); 
         }
+
+        /* পাসওয়ার্ড শো/হাইড টগল */
+        .password-wrapper {
+            position: relative;
+        }
+        .password-wrapper input {
+            padding-right: 46px;
+        }
+        .toggle-pass-btn {
+            position: absolute;
+            top: 50%;
+            right: 14px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 4px;
+            color: #64748b;
+            user-select: none;
+        }
+        .toggle-pass-btn:hover { color: #2563eb; }
         
-        /* বাটন ডিজাইন */
+        /* আধুনিক বাটন ডিজাইন */
         .login-btn { 
             width: 100%; 
-            padding: 14px; 
-            background: #0284c7; 
+            padding: 15px; 
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); 
             border: none; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             color: white; 
             font-size: 16px; 
             font-weight: bold; 
             cursor: pointer; 
-            transition: background 0.2s ease; 
-            margin-top: 6px; 
+            transition: all 0.3s ease; 
+            margin-top: 5px; 
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
-        .login-btn:hover { background: #0369a1; }
-        .login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+        .login-btn:hover { 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+        }
+        .login-btn:active {
+            transform: translateY(1px);
+        }
+        .login-btn:disabled {
+            background: #cbd5e1;
+            color: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
-        /* সেশন লোডার */
+        /* বুট-টাইম সাইলেন্ট সেশন-চেক লোডার */
         #bootLoader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            gap: 12px; z-index: 100000;
-            background: #ffffff;
+            gap: 14px; z-index: 100000;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 45%, #e6edf5 100%);
         }
         #bootLoader .spinner {
-            width: 36px; height: 36px;
-            border: 3px solid #e2e8f0;
-            border-top-color: #0284c7;
+            width: 38px; height: 38px;
+            border: 3px solid rgba(37, 99, 235, 0.15);
+            border-top-color: #2563eb;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
         #bootLoader span { color: #64748b; font-size: 14px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* মেইন কনটেইনার ও আইফ্রেম (ফুল স্ক্রিন ফিক্স) */
+        
+        /* মেইন কনটেইনার ও আইফ্রেম */
         .main-container { 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%; 
+            height: 100%; 
             overflow: hidden; 
             display: none; 
-            background-color: #ffffff;
+            position: relative; 
         }
         iframe { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
             width: 100%; 
             height: 100%; 
             border: none; 
-            display: block;
-            background-color: #ffffff; 
+            background-color: #f8fafc; 
         }
 
-        /* হেডার বারের ডানে সুন্দর ও স্পষ্ট লগ-আউট বাটন */
+        /* ছোট লগ-আউট বাটন — এখন নিচে-ডানে, যাতে অ্যাপের উপরের
+           রিফ্রেশ/অন্যান্য বাটনের সাথে ওভারল্যাপ না করে */
         #logoutBtn {
             position: fixed;
-            top: max(12px, env(safe-area-inset-top)); 
-            right: 12px;
-            z-index: 999999;
-            background: #dc2626;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            font-weight: bold;
+            bottom: 18px; right: 18px;
+            top: auto;
+            z-index: 100001;
+            background: rgba(15, 23, 42, 0.9);
+            color: #f8fafc;
+            border: 1px solid rgba(71, 85, 105, 0.6);
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 12.5px;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: none;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.25);
+            transition: all 0.2s ease;
         }
-        #logoutBtn:active { transform: scale(0.9); }
+        #logoutBtn:hover { background: rgba(220, 38, 38, 0.9); border-color: transparent; transform: translateY(-1px); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -201,35 +246,43 @@
 
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card" id="loginCardContainer">
-            <img src="https://lh3.googleusercontent.com/d/1B-tFRZng9hiqmoHVOnioQ_EdWt1vJ6h9=w1000" alt="Madrasa Logo" class="madrasa-logo" />
+            <!-- আপনার দেওয়া লোগো লিংকটি এখানে সঠিকভাবে সেট করা হয়েছে -->
+            <img src="https://lh3.googleusercontent.com/d/19xL7quoZwFVMc39HW3po7PhbD3t5w-ES=w1000" alt="Madrasa Logo" class="madrasa-logo" />
             <h2>লাইসেন্স ভেরিফিকেশন</h2>
-            <p>সফটওয়্যারটি ব্যবহার করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
+            <p>সফটওয়্যারটি ব্যবহার করতে অনুগ্রহ করে ইউজারনেম এবং পাসওয়ার্ড দিন</p>
             
             <div class="error-msg" id="errorBlock"></div>
             
             <div class="input-group">
                 <label for="username">ইউজারনেম / ফোন নম্বর</label>
-                <input type="text" id="username" placeholder="যেমন: aliahmad" required /> 
+                <input type="text" id="username" placeholder="যেমন: aliahmad" required />
             </div>
             
             <div class="input-group">
                 <label for="licenseKey">পাসওয়ার্ড</label>
-                <input type="password" id="licenseKey" placeholder="যেমন: aliahmad@94" required />
+                <div class="password-wrapper">
+                    <input type="password" id="licenseKey" placeholder="যেমন: aliahmad@94" required />
+                    <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()" aria-label="পাসওয়ার্ড দেখুন/লুকান">👁️</button>
+                </div>
             </div>
             
-            <button class="login-btn" id="loginBtn" onclick="performSecureLogin()">🔑 প্রবেশ করুন</button>
+            <button class="login-btn" id="loginBtn" onclick="performSecureLogin()">🔑 যাচাই ও সক্রিয় করুন</button>
         </div>
     </div>
 
     <div class="main-container" id="mainAppContainer"> 
-        <iframe id="appIframe" src=""></iframe>
+        <iframe id="appIframe" src=""></iframe>   
     </div>
 
-    <!-- টপ-রাইট লাল পাওয়ার বাটন -->
-    <button id="logoutBtn" onclick="performLogout()" title="লগ-আউট">⏻</button>
+    <button id="logoutBtn" onclick="performLogout()">🚪 লগ-আউট</button>
 
-    <script>
-        var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbzZ731W3WfvNgB7vbKg6N1mcA2Wb0hiHbDuu5VyZlPRoa3sugW0t053uBotlgObIzE7/exec";
+    <script> 
+        // গুগল অ্যাপস স্ক্রিপ্টের ডেপ্লয়মেন্ট ইউআরএল (URL)
+        var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbw1oFKhUtPuI4FwPMkjWmSpQWTZSgSOxgPkCaBouHpLZAz5_oreQ6ezh9Gq430KymQG/exec";
+
+        // লগইন সফল হলে সার্ভার থেকে পাওয়া সেশন-টোকেন এখানে সেভ থাকবে —
+        // পরের বার এই পেজে ঢুকলে এই টোকেন দিয়েই চুপচাপ (ফর্ম না দেখিয়ে) লগইন
+        // যাচাই করা হবে, ফলে বারবার ইউজার/পাসওয়ার্ড দিতে হবে না।
         var SESSION_STORAGE_KEY = 'sms_session_token';
 
         function getSavedSession() {
@@ -255,16 +308,54 @@
             document.getElementById('loginOverlay').classList.remove('show');
             document.getElementById('appIframe').src = GOOGLE_SCRIPT_API + "?loadApp=true";
             document.getElementById('mainAppContainer').style.display = 'block';
-            document.getElementById('logoutBtn').style.display = 'flex';
+            document.getElementById('logoutBtn').style.display = 'block';
+        }
+
+        // পাসওয়ার্ড শো/হাইড টগল করার ফাংশন
+        function togglePasswordVisibility() {
+            var pwField = document.getElementById('licenseKey');
+            var btn = document.getElementById('togglePassBtn');
+            if (pwField.type === 'password') {
+                pwField.type = 'text';
+                btn.innerText = '🙈';
+            } else {
+                pwField.type = 'password';
+                btn.innerText = '👁️';
+            }
         }
 
         window.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+
+            // সরাসরি ব্লক করা লিংক (?status=denied) হলে সাইলেন্ট-সেশন চেক না করে
+            // সরাসরি এরর মেসেজ দেখানো হবে
+            if (urlParams.get('status') === 'denied') {
+                hideBootLoader();
+                document.getElementById('loginOverlay').classList.add('show');
+                document.getElementById('loginCardContainer').innerHTML = `
+                    <div style="font-size: 65px; margin-bottom: 15px;">🔒</div>
+                    <h2 style="color: #dc2626; margin-bottom: 10px;">অ্যাক্সেস অস্বীকৃত!</h2>
+                    <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.25); color: #dc2626; padding: 12px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; font-weight: bold; text-align: center;">
+                        🚨 সরাসরি লিংকে প্রবেশ করা সম্পূর্ণ নিষিদ্ধ।
+                    </div>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 25px;">
+                        নিরাপত্তাজনিত কারণে এই ক্লাউড সার্ভার ইউআরএলটি লক করা হয়েছে। সফটওয়্যারটি ব্যবহার করতে অনুগ্রহ করে মূল গিটহাব পোর্টাল ব্যবহার করুন।
+                    </p>
+                    <button class="login-btn" onclick="window.location.href=window.location.pathname" style="background: #2563eb; width: 100%; padding: 14px; border-radius: 8px; color: white; font-weight: bold; border: none; cursor: pointer;">
+                        🔄 মূল লগইন পেজে ফিরুন
+                    </button>
+                `;
+                return;
+            }
+
             var savedToken = getSavedSession();
             if (!savedToken) {
+                // কোনো সেভ করা সেশন নেই — সরাসরি স্বাভাবিক লগইন ফর্ম দেখাও
                 showLoginForm();
                 return;
             }
 
+            // সেভ করা সেশন আছে — চুপচাপ ভেরিফাই করে সরাসরি অ্যাপ খুলে দাও
             fetch(GOOGLE_SCRIPT_API + "?session=" + encodeURIComponent(savedToken))
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
@@ -277,6 +368,8 @@
                     }
                 })
                 .catch(function() {
+                    // নেটওয়ার্ক সমস্যায় টোকেন মুছে ফেলা হচ্ছে না (হয়তো সাময়িক
+                    // সমস্যা), শুধু স্বাভাবিক লগইন ফর্ম দেখানো হচ্ছে
                     showLoginForm();
                 });
         });
@@ -299,7 +392,7 @@
             }
 
             errBlock.style.display = 'none';
-            btn.innerText = "যাচাই করা হচ্ছে...";
+            btn.innerText = "সার্ভার যাচাই করা হচ্ছে...";
             btn.disabled = true;
 
             var requestUrl = GOOGLE_SCRIPT_API + "?user=" + encodeURIComponent(userField) + "&key=" + encodeURIComponent(keyField);
@@ -308,18 +401,23 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.success) {
-                        btn.innerText = "🎉 লগইন সফল!";
+                        // সফল লগইনের সেশন-টোকেন সেভ রাখা হচ্ছে — পরের বার এই
+                        // পেজে এলে আর ইউজার/পাসওয়ার্ড লাগবে না।
+                        // (নোট: এখানে ইচ্ছাকৃতভাবে বাটনের লেখা পরিবর্তন করা
+                        // হচ্ছে না, যাতে "ড্যাশবোর্ড ওপেন হচ্ছে" জাতীয় কোনো
+                        // লেখা রিফ্রেশ/লগইনের সময় ফ্ল্যাশ করে দেখা না যায়।)
                         if (data.session) saveSession(data.session);
                         openApp();
                     } else {
                         showMsg("❌ " + (data.error ? data.error : "ভুল ইউজার আইডি অথবা পাসওয়ার্ড!"));
-                        btn.innerText = "🔑 প্রবেশ করুন";
+                        btn.innerText = "🔑 যাচাই ও সক্রিয় করুন";
                         btn.disabled = false;
                     }
                 })
                 .catch(err => {
+                    console.log("Error logic triggered...");
                     showMsg("❌ সার্ভার সংযোগে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
-                    btn.innerText = "🔑 প্রবেশ করুন";
+                    btn.innerText = "🔑 যাচাই ও সক্রিয় করুন";
                     btn.disabled = false;
                 });
         }
@@ -330,7 +428,7 @@
             document.getElementById('logoutBtn').style.display = 'none';
             document.getElementById('mainAppContainer').style.display = 'none';
             document.getElementById('appIframe').src = '';
-            
+            // ইউজারনেম/পাসওয়ার্ড ফিল্ড খালি করে স্বাভাবিক লগইন ফর্ম দেখানো হচ্ছে
             document.getElementById('username').value = '';
             document.getElementById('licenseKey').value = '';
             document.getElementById('errorBlock').style.display = 'none';
@@ -339,6 +437,17 @@
 
         document.getElementById('licenseKey').addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSecureLogin(); } });
         document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSecureLogin(); } });
+    </script>
+
+    <!-- সিকিউরিটি স্ক্রিপ্ট (রাইট ক্লিক এবং ইন্সপেক্ট এলিমেন্ট ব্লক) -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            if (e.ctrlKey && e.keyCode == 85) return false;
+        };
     </script>
 </body>
 </html>
