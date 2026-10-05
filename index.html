@@ -183,3 +183,249 @@
             display: none; 
             background-color: #0f172a;
             padding-top: env(safe-area-inset-top, 35px);
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+            background-color: #0f172a; 
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bootLoader">
+        <div class="spinner"></div>
+        <span>লোড হচ্ছে…</span>
+    </div>
+
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-card" id="loginCardContainer">
+            <div class="madrasa-logo" style="display:flex;align-items:center;justify-content:center;font-size:40px;">🏫</div>
+            <h2>লাইসেন্স ভেরিফিকেশন</h2>
+            <p>সফটওয়্যারটি ব্যবহার করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
+            
+            <div class="error-msg" id="errorBlock"></div>
+            
+            <div class="input-group">
+                <label for="username">ইউজারনেম / ফোন নম্বর</label>
+                <input type="text" id="username" placeholder="যেমন: AnasTech" required /> 
+            </div>
+            
+            <div class="input-group">
+                <label for="licenseKey">পাসওয়ার্ড</label>
+                <div class="password-wrapper">
+                    <input type="password" id="licenseKey" placeholder="যেমন: AnasTech@77" required />
+                    <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()" aria-label="পাসওয়ার্ড দেখুন/লুকান">👁️</button>
+                </div>
+            </div>
+            
+            <button class="login-btn" id="loginBtn" onclick="performSecureLogin()">🔑 প্রবেশ করুন</button>
+        </div>
+    </div>
+
+    <div class="main-container" id="mainAppContainer"> 
+        <iframe id="appIframe" src=""></iframe>
+    </div>
+     
+    <script>
+        // ══════════════════════════════════════════════════════════════
+        // ⚙️ শুধু এই দুইটা মান বদলে যেকোনো প্রতিষ্ঠানের জন্য এই একই
+        // ফাইল পুনরায় ব্যবহার করা যাবে।
+        // ══════════════════════════════════════════════════════════════
+
+        // 🏫 এই GitHub Page কোন প্রতিষ্ঠানের — Master-এর Institutions
+        //    Sheet-এ যে "Institution ID" বসিয়েছেন, ঠিক সেটাই এখানে লিখুন
+        var INSTITUTION_ID = "ATMS0477";   // <-- প্রতিটা প্রতিষ্ঠানের জন্য শুধু এই লাইনটা বদলাবেন
+
+        // 🌐 এটা সব প্রতিষ্ঠানের জন্য একই থাকবে — একবারই বসাবেন
+        var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbwSn1X_uXxiMb2FBjlHkTHX5l_w4bLPFBjh7TphNDc0P4gWcrEZqPmxqUbL5xfOJ1dBZg/exec";
+
+        // ══════════════════════════════════════════════════════════════
+
+        var SESSION_STORAGE_KEY = 'sms_session_token_' + INSTITUTION_ID;
+
+        function getSavedSession() {
+            try { return localStorage.getItem(SESSION_STORAGE_KEY); } catch (e) { return null; }
+        }
+        function saveSession(token) {
+            try { if (token) localStorage.setItem(SESSION_STORAGE_KEY, token); } catch (e) {}
+        }
+        function clearSavedSession() {
+            try { localStorage.removeItem(SESSION_STORAGE_KEY); } catch (e) {}
+        }
+
+        function hideBootLoader() {
+            var loader = document.getElementById('bootLoader');
+            if (loader) loader.style.display = 'none';
+        }
+        function showBootLoader(text) {
+            var loader = document.getElementById('bootLoader');
+            if (!loader) return;
+            if (text) loader.querySelector('span').textContent = text;
+            loader.style.display = 'flex';
+        }
+        function showLoginForm() {
+            hideBootLoader();
+            document.getElementById('loginOverlay').classList.add('show');
+        }
+
+        // অ্যাপ লোড শুরু করে। অ্যাপের পেজ নিজে লোড হওয়া পর্যন্তই লোডার দেখায়
+        function openApp() {
+            document.getElementById('loginOverlay').classList.remove('show');
+            var frame = document.getElementById('appIframe');
+            showBootLoader('লোড হচ্ছে…');
+
+            var done = false;
+            function finish() { if (done) return; done = true; hideBootLoader(); }
+            frame.onload = finish;
+            setTimeout(finish, 20000); // নেটওয়ার্ক খুব ধীর হলেও লোডার আটকে থাকবে না
+
+            frame.src = GOOGLE_SCRIPT_API + "?inst=" + encodeURIComponent(INSTITUTION_ID) + "&loadApp=true" +
+                "&session=" + encodeURIComponent(getSavedSession() || '');
+            document.getElementById('mainAppContainer').style.display = 'block';
+        }
+
+        // সেশন অবৈধ হলে অ্যাপ বন্ধ করে লগইনে ফেরায়
+        function closeApp() {
+            var frame = document.getElementById('appIframe');
+            frame.onload = null;
+            frame.src = 'about:blank';
+            document.getElementById('mainAppContainer').style.display = 'none';
+        }
+
+        // অ্যাপের ভেতর থেকে "সেশন অবৈধ" খবর এলে লগইন ফর্মে ফেরা
+        window.addEventListener('message', function (ev) {
+            if (!/(googleusercontent\.com|script\.google\.com)$/.test(ev.origin || '')) return;
+            if (ev.data && ev.data.sms === 'session-invalid') {
+                clearSavedSession();
+                closeApp();
+                showLoginForm();
+            }
+        });
+
+        function togglePasswordVisibility() {
+            var pwField = document.getElementById('licenseKey');
+            var btn = document.getElementById('togglePassBtn');
+            if (pwField.type === 'password') {
+                pwField.type = 'text';
+                btn.innerText = '🙈';
+            } else {
+                pwField.type = 'password';
+                btn.innerText = '👁️';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var urlParams = new URLSearchParams(window.location.search);
+
+            if (urlParams.get('status') === 'denied') {
+                hideBootLoader();
+                document.getElementById('loginOverlay').classList.add('show');
+                document.getElementById('loginCardContainer').innerHTML = `
+                    <div style="font-size: 60px; margin-bottom: 12px;">🔒</div>
+                    <h2 style="color: #dc2626; margin-bottom: 8px;">অ্যাক্সেস অস্বীকৃত!</h2>
+                    <div style="background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px; border-radius: 8px; font-size: 14px; margin-bottom: 18px; font-weight: bold; text-align: center;">
+                        🚨 সরাসরি লিংকে প্রবেশ করা সম্পূর্ণ নিষিদ্ধ।
+                    </div>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.5; margin-bottom: 20px;">
+                        নিরাপত্তাজনিত কারণে এই ক্লাউড সার্ভার ইউআরএলটি লক করা হয়েছে।
+                    </p>
+                    <button class="login-btn" onclick="window.location.href=window.location.pathname">
+                        🔄 মূল লগইন পেজে ফিরুন
+                    </button>
+                `;
+                return;
+            }
+
+            var savedToken = getSavedSession();
+            if (!savedToken) {
+                showLoginForm();
+                return;
+            }
+
+            // ⚡ আশাবাদী খোলা: আগের টোকেন থাকলে অ্যাপ সাথে সাথে লোড শুরু হয়,
+            // আর সেশন যাচাই পাশাপাশি (parallel) চলে — আগে একটার পর একটা চলত।
+            openApp();
+
+            fetch(GOOGLE_SCRIPT_API + "?inst=" + encodeURIComponent(INSTITUTION_ID) + "&session=" + encodeURIComponent(savedToken))
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data && data.success) {
+                        if (data.session) saveSession(data.session);
+                    } else {
+                        // সেশন শেষ — অ্যাপ বন্ধ করে লগইনে পাঠাও
+                        clearSavedSession();
+                        closeApp();
+                        showLoginForm();
+                    }
+                })
+                .catch(function() {
+                    // সাময়িক নেটওয়ার্ক সমস্যা: ব্যবহারকারীকে বের করে দেওয়া হয় না, অ্যাপ খোলা থাকে
+                });
+        });
+
+        function showMsg(text) {
+            var errBlock = document.getElementById('errorBlock');
+            errBlock.innerText = text;
+            errBlock.style.display = 'block';
+        }
+
+        function performSecureLogin() {
+            var userField = document.getElementById('username').value.trim();
+            var keyField  = document.getElementById('licenseKey').value.trim();
+            var btn = document.getElementById('loginBtn');
+            var errBlock = document.getElementById('errorBlock');
+
+            if (!userField || !keyField) {
+                showMsg('❌ অনুগ্রহ করে ইউজারনেম এবং পাসওয়ার্ড দুটোই সঠিকভাবে লিখুন।');
+                return;
+            }
+
+            errBlock.style.display = 'none';
+            btn.innerText = "যাচাই করা হচ্ছে...";
+            btn.disabled = true;
+
+            var requestUrl = GOOGLE_SCRIPT_API +
+                "?inst=" + encodeURIComponent(INSTITUTION_ID) +
+                "&user=" + encodeURIComponent(userField) +
+                "&key=" + encodeURIComponent(keyField);
+
+            fetch(requestUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.success) {
+                        btn.innerText = "🎉 লগইন সফল!";
+                        if (data.session) saveSession(data.session);
+                        openApp();
+                    } else {
+                        showMsg("❌ " + (data.error ? data.error : "ভুল ইউজার আইডি অথবা পাসওয়ার্ড!"));
+                        btn.innerText = "🔑 প্রবেশ করুন";
+                        btn.disabled = false;
+                    }
+                })
+                .catch(err => {
+                    showMsg("❌ সার্ভার সংযোগে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
+                    btn.innerText = "🔑 প্রবেশ করুন";
+                    btn.disabled = false;
+                });
+        }
+
+        document.getElementById('licenseKey').addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSecureLogin(); } });
+        document.getElementById('username').addEventListener('keypress', function(e) { if (e.key === 'Enter') { performSecureLogin(); } });
+    </script>
+
+    <!-- সিকিউরিটি স্ক্রিপ্ট -->
+    <script>
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
+            if (e.ctrlKey && e.keyCode == 85) return false;
+        };
+    </script>
+</body>
+</html>
