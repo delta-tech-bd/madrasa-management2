@@ -3,20 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>প্রতিষ্ঠান ম্যানেজমেন্ট সিস্টেম</title>
+    <title>প্রতিষ্ঠানের ম্যানেজমেন্ট সিস্টেম - Anas Tech</title>
 
-    <!-- ফেভিকন আইকন -->
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1yCZGvb0PO7TouAbfFUDmzdvn6vhQY4qS=w1000" />
-
-    <!-- সার্ভার ও লোগোর সংযোগ আগে থেকেই খুলে রাখে -->
+    <!-- Anas Tech কোম্পানির আসল লোগো ফেভিকন হিসেবে -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1OmiyuOhFUBWfQUvupjZC5cEZ6zC-sPHY=w1000" />
     <link rel="preconnect" href="https://script.google.com" crossorigin />
-    <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin />
-    <link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin />
-    <link rel="dns-prefetch" href="https://script.google.com" />
-    <link rel="dns-prefetch" href="https://script.googleusercontent.com" />
-    <link rel="preload" as="image" href="https://lh3.googleusercontent.com/d/1yCZGvb0PO7TouAbfFUDmzdvn6vhQY4qS=w1000" />
-
-    <!-- ফন্ট: পেজ রেন্ডার আটকে না রেখে লোড হয় -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SolaimanLipi&display=swap" media="print" onload="this.media='all'" />
 
@@ -26,27 +17,31 @@
 
         .login-overlay { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 99999; padding: 20px; background: #f8fafc; }
         .login-overlay.show { display: flex; }
-        .login-card { background: #fff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.05); width: 100%; max-width: 420px; text-align: center; border: 1px solid #e2e8f0; }
-        .madrasa-logo { width: 90px; height: 90px; margin: 0 auto 16px auto; object-fit: contain; display: block; }
-        .login-card h2 { margin: 0 0 8px; font-size: 24px; font-weight: 700; color: #0f172a; }
-        .login-card p { margin: 0 0 24px; color: #64748b; font-size: 14px; line-height: 1.5; }
+        .login-card { background: #fff; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #e2e8f0; }
+        
+        /* Anas Tech লোগো ডিজাইন স্টাইল */
+        .company-logo { width: 95px; height: 95px; margin: 0 auto 12px auto; object-fit: contain; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+        
+        .login-card h2 { margin: 0 0 6px; font-size: 22px; font-weight: 700; color: #0f172a; }
+        .login-card p { margin: 0 0 18px; color: #64748b; font-size: 13px; line-height: 1.5; }
 
-        .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; display: none; text-align: center; }
+        .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; display: none; text-align: center; }
 
-        .input-group { margin-bottom: 18px; text-align: left; }
-        .input-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #334155; font-weight: 600; }
-        .input-group input { width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; color: #0f172a; font-size: 15px; outline: none; transition: all .2s ease; }
-        .input-group input::placeholder { color: #94a3b8; }
+        .input-group { margin-bottom: 12px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 4px; font-size: 13px; color: #334155; font-weight: 600; }
+        .input-group input { width: 100%; padding: 10px 14px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; color: #0f172a; font-size: 14px; outline: none; transition: all .2s ease; }
         .input-group input:focus { border-color: #0284c7; background: #fff; box-shadow: 0 0 0 3px rgba(2,132,199,.15); }
 
         .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 46px; }
-        .toggle-pass-btn { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; line-height: 1; padding: 4px; color: #64748b; user-select: none; }
-        .toggle-pass-btn:hover { color: #0284c7; }
+        .password-wrapper input { padding-right: 42px; }
+        .toggle-pass-btn { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: #64748b; }
 
-        .login-btn { width: 100%; padding: 14px; background: #0284c7; border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .2s ease; margin-top: 6px; }
+        .login-btn { width: 100%; padding: 12px; background: #0284c7; border: none; border-radius: 10px; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer; transition: background .2s ease; margin-top: 6px; }
         .login-btn:hover { background: #0369a1; }
         .login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .switch-inst-btn { position: fixed; top: 10px; right: 10px; z-index: 9999; background: rgba(15, 23, 42, 0.7); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; backdrop-filter: blur(4px); }
+        .switch-inst-btn:hover { background: #ef4444; border-color: #ef4444; }
 
         #bootLoader { position: fixed; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; z-index: 100000; background: #fff; }
         #bootLoader .spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #0284c7; border-radius: 50%; animation: spin .8s linear infinite; }
@@ -64,13 +59,21 @@
         <span>লোড হচ্ছে…</span>
     </div>
 
+    <button class="switch-inst-btn" id="switchBtn" style="display:none;" onclick="logoutAndSwitch()">🔄 Log Out</button>
+
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card" id="loginCardContainer">
-            <img src="https://lh3.googleusercontent.com/d/1yCZGvb0PO7TouAbfFUDmzdvn6vhQY4qS=w1000" alt="প্রতিষ্ঠান লোগো" class="madrasa-logo" />
-            <h2>লাইসেন্স ভেরিফিকেশন</h2>
-            <p>সফটওয়্যারটি ব্যবহার করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
+            <!-- আপনার গুগল ড্রাইভের আসল লোগো লিঙ্ক -->
+            <img src="https://lh3.googleusercontent.com/d/1OmiyuOhFUBWfQUvupjZC5cEZ6zC-sPHY=w1000" alt="Anas Tech Logo" class="company-logo" />
+            <h2>Anas Tech সফটওয়্যার পোর্টাল</h2>
+            <p>আপনার প্রতিষ্ঠানের আইডি, ইউজারনেম ও পাসওয়ার্ড দিন</p>
 
             <div class="error-msg" id="errorBlock"></div>
+
+            <div class="input-group">
+                <label for="instId">প্রতিষ্ঠানের কোড (Institution ID)</label>
+                <input type="text" id="instId" placeholder="যেমন: ATMS0478" autocomplete="off" required />
+            </div>
 
             <div class="input-group">
                 <label for="username">ইউজারনেম / ফোন নম্বর</label>
@@ -80,8 +83,8 @@
             <div class="input-group">
                 <label for="licenseKey">পাসওয়ার্ড</label>
                 <div class="password-wrapper">
-                    <input type="password" id="licenseKey" placeholder="যেমন: AnasTech@77" autocomplete="current-password" required />
-                    <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()" aria-label="পাসওয়ার্ড দেখুন/লুকান">👁️</button>
+                    <input type="password" id="licenseKey" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required />
+                    <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
             </div>
 
@@ -94,116 +97,61 @@
     </div>
 
     <script>
-        // ══════════════════════════════════════════════════════════════
-        // ⚙️ শুধু এই দুইটা মান বদলে যেকোনো প্রতিষ্ঠানের জন্য এই ফাইল ব্যবহার করা যাবে
-        // ══════════════════════════════════════════════════════════════
-        var INSTITUTION_ID = "ATMS0477";   // <-- প্রতিটা প্রতিষ্ঠানের জন্য শুধু এই লাইনটা বদলাবেন
         var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycby6_WvDV9RWiBv8vg0GAdq5txYg2abB9KxylpTHv40XsPLvbDeoi1kw0xTCG0o-8dir9w/exec";
-        // ══════════════════════════════════════════════════════════════
 
-        var SESSION_STORAGE_KEY = 'sms_session_token_' + INSTITUTION_ID;
-        var BASE = GOOGLE_SCRIPT_API + "?inst=" + encodeURIComponent(INSTITUTION_ID);
-
-        // ── সেশন স্টোরেজ ──
-        function getSavedSession() { try { return localStorage.getItem(SESSION_STORAGE_KEY); } catch (e) { return null; } }
-        function saveSession(token) { try { if (token) localStorage.setItem(SESSION_STORAGE_KEY, token); } catch (e) {} }
-        function clearSavedSession() { try { localStorage.removeItem(SESSION_STORAGE_KEY); } catch (e) {} }
-
-        // ── লোডার / ফর্ম ──
-        function hideBootLoader() {
-            var l = document.getElementById('bootLoader');
-            if (l) l.style.display = 'none';
+        function getSavedSession() { try { return localStorage.getItem('sms_session_token'); } catch (e) { return null; } }
+        function getSavedInst() { try { return localStorage.getItem('sms_institution_id'); } catch (e) { return null; } }
+        function saveSession(token, inst) { 
+            try { 
+                if (token) localStorage.setItem('sms_session_token', token); 
+                if (inst) localStorage.setItem('sms_institution_id', inst);
+            } catch (e) {} 
         }
-        function showBootLoader(text) {
-            var l = document.getElementById('bootLoader');
-            if (!l) return;
-            if (text) l.querySelector('span').textContent = text;
-            l.style.display = 'flex';
-        }
-        function showLoginForm() {
-            hideBootLoader();
-            document.getElementById('loginOverlay').classList.add('show');
-        }
-        function showMsg(text) {
-            var e = document.getElementById('errorBlock');
-            e.innerText = text;
-            e.style.display = 'block';
+        function clearSavedSession() { 
+            try { 
+                localStorage.removeItem('sms_session_token'); 
+                localStorage.removeItem('sms_institution_id');
+            } catch (e) {} 
         }
 
-        // ── সার্ভার "গরম" রাখা: ইউজার ফর্ম পূরণ করার সময়ই Apps Script জেগে ওঠে ──
-        var warmedUp = false;
-        function warmUpServer() {
-            if (warmedUp) return;
-            warmedUp = true;
-            try { fetch(BASE + "&ping=1", { mode: 'no-cors', cache: 'no-store' }).catch(function () {}); } catch (e) {}
+        function hideBootLoader() { var l = document.getElementById('bootLoader'); if (l) l.style.display = 'none'; }
+        function showBootLoader(text) { var l = document.getElementById('bootLoader'); if (l) { l.querySelector('span').textContent = text || 'লোড হচ্ছে…'; l.style.display = 'flex'; } }
+        function showLoginForm() { 
+            hideBootLoader(); 
+            document.getElementById('switchBtn').style.display = 'none';
+            document.getElementById('loginOverlay').classList.add('show'); 
         }
+        function showMsg(text) { var e = document.getElementById('errorBlock'); e.innerText = text; e.style.display = 'block'; }
 
-        // ── সেশন যাচাই (অ্যাপ লোড শেষ হওয়ার পর চলে) ──
-        var verifying = false;
-        function verifySession() {
-            if (verifying) return;
-            var token = getSavedSession();
-            if (!token) return;
-            verifying = true;
-            fetch(BASE + "&session=" + encodeURIComponent(token))
-                .then(function (r) { return r.json(); })
-                .then(function (data) {
-                    if (data && data.success) {
-                        if (data.session) saveSession(data.session);
-                    } else {
-                        clearSavedSession();
-                        closeApp();
-                        showLoginForm();
-                    }
-                })
-                .catch(function () { /* সাময়িক নেটওয়ার্ক সমস্যা: ব্যবহারকারীকে বের করা হয় না */ })
-                .then(function () { verifying = false; });
-        }
-
-        // ── অ্যাপ খোলা ──
         var appLoadFinish = null;
 
-        function openApp(verifyAfter) {
+        function openApp(instId) {
             document.getElementById('loginOverlay').classList.remove('show');
+            document.getElementById('switchBtn').style.display = 'block'; 
             var frame = document.getElementById('appIframe');
             showBootLoader('লোড হচ্ছে…');
+
+            var BASE = GOOGLE_SCRIPT_API + "?inst=" + encodeURIComponent(instId);
 
             var done = false;
             appLoadFinish = function () {
                 if (done) return;
                 done = true;
                 hideBootLoader();
-                if (verifyAfter) verifySession();
             };
             frame.onload = appLoadFinish;
-            setTimeout(appLoadFinish, 20000); // খুব ধীর নেটওয়ার্কেও লোডার আটকে থাকবে না
+            setTimeout(appLoadFinish, 15000);
 
             frame.src = BASE + "&loadApp=true&session=" + encodeURIComponent(getSavedSession() || '');
             document.getElementById('mainAppContainer').style.display = 'block';
         }
 
-        function closeApp() {
-            var frame = document.getElementById('appIframe');
-            frame.onload = null;
-            appLoadFinish = null;
-            frame.removeAttribute('src');
+        function logoutAndSwitch() {
+            clearSavedSession(); 
             document.getElementById('mainAppContainer').style.display = 'none';
+            document.getElementById('appIframe').removeAttribute('src');
+            showLoginForm(); 
         }
-
-        // ── অ্যাপের ভেতর থেকে আসা বার্তা ──
-        window.addEventListener('message', function (ev) {
-            if (!/(googleusercontent\.com|script\.google\.com)$/.test(ev.origin || '')) return;
-            var d = ev.data;
-            if (!d) return;
-
-            if (d.sms === 'session-invalid') {
-                clearSavedSession();
-                closeApp();
-                showLoginForm();
-            } else if (d.sms === 'app-ready') {
-                if (appLoadFinish) appLoadFinish();
-            }
-        });
 
         function togglePasswordVisibility() {
             var pw = document.getElementById('licenseKey');
@@ -212,82 +160,53 @@
             else { pw.type = 'password'; btn.innerText = '👁️'; }
         }
 
-        // ── পেজ শুরু ──
         window.addEventListener('DOMContentLoaded', function () {
-            var urlParams = new URLSearchParams(window.location.search);
+            var savedInst = getSavedInst();
+            var savedToken = getSavedSession();
 
-            if (urlParams.get('status') === 'denied') {
-                hideBootLoader();
-                document.getElementById('loginOverlay').classList.add('show');
-                document.getElementById('loginCardContainer').innerHTML =
-                    '<div style="font-size:60px;margin-bottom:12px;">🔒</div>' +
-                    '<h2 style="color:#dc2626;margin-bottom:8px;">অ্যাক্সেস অস্বীকৃত!</h2>' +
-                    '<div style="background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:12px;border-radius:8px;font-size:14px;margin-bottom:18px;font-weight:bold;text-align:center;">🚨 সরাসরি লিংকে প্রবেশ করা সম্পূর্ণ নিষিদ্ধ।</div>' +
-                    '<p style="color:#64748b;font-size:14px;line-height:1.5;margin-bottom:20px;">নিরাপত্তাজনিত কারণে এই ক্লাউড সার্ভার ইউআরএলটি লক করা হয়েছে।</p>' +
-                    '<button class="login-btn" onclick="window.location.href=window.location.pathname">🔄 মূল লগইন পেজে ফিরুন</button>';
-                return;
-            }
-
-            if (!getSavedSession()) {
-                warmUpServer();   // ইউজার টাইপ করার সময়ই সার্ভার জেগে উঠুক
+            if (savedInst && savedToken) {
+                openApp(savedInst);
+            } else {
                 showLoginForm();
-                return;
             }
-
-            // আগের সেশন আছে: অ্যাপ সাথে সাথে খোলো, যাচাই লোড শেষে চলবে
-            openApp(true);
         });
 
-        // ── লগইন ──
         function performSecureLogin() {
+            var inst = document.getElementById('instId').value.trim().toUpperCase();
             var user = document.getElementById('username').value.trim();
             var key = document.getElementById('licenseKey').value.trim();
             var btn = document.getElementById('loginBtn');
-            var errBlock = document.getElementById('errorBlock');
 
-            if (!user || !key) {
-                showMsg('❌ অনুগ্রহ করে ইউজারনেম এবং পাসওয়ার্ড দুটোই সঠিকভাবে লিখুন।');
+            if (!inst || !user || !key) {
+                showMsg('❌ প্রতিষ্ঠানের আইডি, ইউজারনেম এবং পাসওয়ার্ড সবগুলো সঠিকভাবে দিন।');
                 return;
             }
 
-            errBlock.style.display = 'none';
+            document.getElementById('errorBlock').style.display = 'none';
             btn.innerText = "যাচাই করা হচ্ছে...";
             btn.disabled = true;
+
+            var BASE = GOOGLE_SCRIPT_API + "?inst=" + encodeURIComponent(inst);
 
             fetch(BASE + "&user=" + encodeURIComponent(user) + "&key=" + encodeURIComponent(key))
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
                     if (data && data.success) {
-                        btn.innerText = "🎉 লগইন সফল!";
-                        if (data.session) saveSession(data.session);
-                        openApp(false);   // এইমাত্র লগইন হয়েছে, আলাদা যাচাই লাগবে না
+                        btn.innerText = "🎉 সফল হয়েছে!";
+                        saveSession(data.session, inst);
+                        openApp(inst);
                     } else {
-                        showMsg("❌ " + (data && data.error ? data.error : "ভুল ইউজার আইডি অথবা পাসওয়ার্ড!"));
+                        showMsg("❌ " + (data && data.error ? data.error : "ভুল প্রতিষ্ঠান আইডি, ইউজারনেম অথবা পাসওয়ার্ড!"));
                         btn.innerText = "🔑 প্রবেশ করুন";
                         btn.disabled = false;
                     }
                 })
                 .catch(function () {
-                    showMsg("❌ সার্ভার সংযোগে সমস্যা হয়েছে! আবার চেষ্টা করুন।");
+                    showMsg("❌ নেটওয়ার্ক বা সার্ভারে সংযোগ করতে সমস্যা হয়েছে!");
                     btn.innerText = "🔑 প্রবেশ করুন";
                     btn.disabled = false;
                 });
         }
-
-        document.getElementById('licenseKey').addEventListener('keypress', function (e) { if (e.key === 'Enter') performSecureLogin(); });
-        document.getElementById('username').addEventListener('keypress', function (e) { if (e.key === 'Enter') performSecureLogin(); });
-        document.getElementById('username').addEventListener('focus', warmUpServer);
-    </script>
-
-    <!-- সিকিউরিটি স্ক্রিপ্ট -->
-    <script>
-        document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
-        document.onkeydown = function (e) {
-            if (e.keyCode == 123) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 73) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 74) return false;
-            if (e.ctrlKey && e.keyCode == 85) return false;
-        };
     </script>
 </body>
 </html>
