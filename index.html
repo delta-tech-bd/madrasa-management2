@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <title>প্রতিষ্ঠানের ম্যানেজমেন্ট সিস্টেম - Anas Tech</title>
+    <title>দারুত তাক্বওয়া হুফফাজুল কোরআন মাদ্রাসা ও এতিমখানা</title>
 
-    <!-- Anas Tech কোম্পানির আসল লোগো ফেভিকন হিসেবে -->
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1OmiyuOhFUBWfQUvupjZC5cEZ6zC-sPHY=w1000" />
+    <!-- ফেভিকন আইকন -->
+    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1BC9yDZx-LEVp1pb0qkm3ue4yPq382PZl=w1000" />
     <link rel="preconnect" href="https://script.google.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SolaimanLipi&display=swap" media="print" onload="this.media='all'" />
@@ -17,26 +17,23 @@
 
         .login-overlay { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; z-index: 99999; padding: 20px; background: #f8fafc; }
         .login-overlay.show { display: flex; }
-        .login-card { background: #fff; padding: 30px 20px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,.1); width: 100%; max-width: 420px; text-align: center; border: 1px solid #e2e8f0; }
-        
-        /* Anas Tech লোগো ডিজাইন স্টাইল */
-        .company-logo { width: 95px; height: 95px; margin: 0 auto 12px auto; object-fit: contain; display: block; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-        
-        .login-card h2 { margin: 0 0 6px; font-size: 22px; font-weight: 700; color: #0f172a; }
-        .login-card p { margin: 0 0 18px; color: #64748b; font-size: 13px; line-height: 1.5; }
+        .login-card { background: #fff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.05); width: 100%; max-width: 420px; text-align: center; border: 1px solid #e2e8f0; }
+        .madrasa-logo { width: 90px; height: 90px; margin: 0 auto 16px; display: block; object-fit: contain; }
+        .login-card h2 { margin: 0 0 8px; font-size: 24px; font-weight: 700; color: #0f172a; }
+        .login-card p { margin: 0 0 24px; color: #64748b; font-size: 14px; line-height: 1.5; }
 
-        .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 10px; font-size: 13px; margin-bottom: 14px; display: none; text-align: center; }
+        .error-msg { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; display: none; text-align: center; }
 
-        .input-group { margin-bottom: 12px; text-align: left; }
-        .input-group label { display: block; margin-bottom: 4px; font-size: 13px; color: #334155; font-weight: 600; }
-        .input-group input { width: 100%; padding: 10px 14px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; color: #0f172a; font-size: 14px; outline: none; transition: all .2s ease; }
+        .input-group { margin-bottom: 18px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #334155; font-weight: 600; }
+        .input-group input { width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; color: #0f172a; font-size: 15px; outline: none; transition: all .2s ease; }
         .input-group input:focus { border-color: #0284c7; background: #fff; box-shadow: 0 0 0 3px rgba(2,132,199,.15); }
 
         .password-wrapper { position: relative; }
-        .password-wrapper input { padding-right: 42px; }
-        .toggle-pass-btn { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: #64748b; }
+        .password-wrapper input { padding-right: 46px; }
+        .toggle-pass-btn { position: absolute; top: 50%; right: 12px; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; color: #64748b; }
 
-        .login-btn { width: 100%; padding: 12px; background: #0284c7; border: none; border-radius: 10px; color: #fff; font-size: 15px; font-weight: bold; cursor: pointer; transition: background .2s ease; margin-top: 6px; }
+        .login-btn { width: 100%; padding: 14px; background: #0284c7; border: none; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .2s ease; margin-top: 6px; }
         .login-btn:hover { background: #0369a1; }
         .login-btn:disabled { background: #94a3b8; cursor: not-allowed; }
 
@@ -63,17 +60,11 @@
 
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card" id="loginCardContainer">
-            <!-- আপনার গুগল ড্রাইভের আসল লোগো লিঙ্ক -->
-            <img src="https://lh3.googleusercontent.com/d/1OmiyuOhFUBWfQUvupjZC5cEZ6zC-sPHY=w1000" alt="Anas Tech Logo" class="company-logo" />
-            <h2>Anas Tech সফটওয়্যার পোর্টাল</h2>
-            <p>আপনার প্রতিষ্ঠানের আইডি, ইউজারনেম ও পাসওয়ার্ড দিন</p>
+            <img src="https://lh3.googleusercontent.com/d/1BC9yDZx-LEVp1pb0qkm3ue4yPq382PZl=w1000" alt="Madrasa Logo" class="madrasa-logo" />
+            <h2>লাইসেন্স ভেরিফিকেশন</h2>
+            <p>সফটওয়্যারটি ব্যবহার করতে ইউজারনেম ও পাসওয়ার্ড দিন</p>
 
             <div class="error-msg" id="errorBlock"></div>
-
-            <div class="input-group">
-                <label for="instId">প্রতিষ্ঠানের কোড (Institution ID)</label>
-                <input type="text" id="instId" placeholder="যেমন: ATMS0478" autocomplete="off" required />
-            </div>
 
             <div class="input-group">
                 <label for="username">ইউজারনেম / ফোন নম্বর</label>
@@ -83,7 +74,7 @@
             <div class="input-group">
                 <label for="licenseKey">পাসওয়ার্ড</label>
                 <div class="password-wrapper">
-                    <input type="password" id="licenseKey" placeholder="পাসওয়ার্ড দিন" autocomplete="current-password" required />
+                    <input type="password" id="licenseKey" placeholder="যেমন: AnasTech@77" autocomplete="current-password" required />
                     <button type="button" class="toggle-pass-btn" id="togglePassBtn" onclick="togglePasswordVisibility()">👁️</button>
                 </div>
             </div>
@@ -97,29 +88,31 @@
     </div>
 
     <script>
-        var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbwpfgMerLQBiGmdkZXRZK1kQKIDa6FZ03H80YJN5W4WrWMHwHKuLFsO-DvzUMzQA4KHRg/exec";
+        // প্রতিষ্ঠানের কোড নির্ধারিত
+        var INSTITUTION_ID = "ATMS0477";
+        var GOOGLE_SCRIPT_API = "https://script.google.com/macros/s/AKfycbzJTmJ6e2_pOrXR5umb4IzklVP-zZqidSH6tNY83EaXlOib1X4upGRHY_PJnhsvf0V_Ew/exec";
 
         function getSavedSession() { try { return localStorage.getItem('sms_session_token'); } catch (e) { return null; } }
         function getSavedInst() { try { return localStorage.getItem('sms_institution_id'); } catch (e) { return null; } }
-        function saveSession(token, inst) { 
-            try { 
-                if (token) localStorage.setItem('sms_session_token', token); 
+        function saveSession(token, inst) {
+            try {
+                if (token) localStorage.setItem('sms_session_token', token);
                 if (inst) localStorage.setItem('sms_institution_id', inst);
-            } catch (e) {} 
+            } catch (e) {}
         }
-        function clearSavedSession() { 
-            try { 
-                localStorage.removeItem('sms_session_token'); 
+        function clearSavedSession() {
+            try {
+                localStorage.removeItem('sms_session_token');
                 localStorage.removeItem('sms_institution_id');
-            } catch (e) {} 
+            } catch (e) {}
         }
 
         function hideBootLoader() { var l = document.getElementById('bootLoader'); if (l) l.style.display = 'none'; }
         function showBootLoader(text) { var l = document.getElementById('bootLoader'); if (l) { l.querySelector('span').textContent = text || 'লোড হচ্ছে…'; l.style.display = 'flex'; } }
-        function showLoginForm() { 
-            hideBootLoader(); 
+        function showLoginForm() {
+            hideBootLoader();
             document.getElementById('switchBtn').style.display = 'none';
-            document.getElementById('loginOverlay').classList.add('show'); 
+            document.getElementById('loginOverlay').classList.add('show');
         }
         function showMsg(text) { var e = document.getElementById('errorBlock'); e.innerText = text; e.style.display = 'block'; }
 
@@ -127,7 +120,7 @@
 
         function openApp(instId) {
             document.getElementById('loginOverlay').classList.remove('show');
-            document.getElementById('switchBtn').style.display = 'block'; 
+            document.getElementById('switchBtn').style.display = 'block';
             var frame = document.getElementById('appIframe');
             showBootLoader('লোড হচ্ছে…');
 
@@ -147,10 +140,14 @@
         }
 
         function logoutAndSwitch() {
-            clearSavedSession(); 
+            clearSavedSession();
             document.getElementById('mainAppContainer').style.display = 'none';
             document.getElementById('appIframe').removeAttribute('src');
-            showLoginForm(); 
+            // লগআউটের পর লগইন বাটন যেন আটকে না থাকে
+            var btn = document.getElementById('loginBtn');
+            btn.innerText = "🔑 প্রবেশ করুন";
+            btn.disabled = false;
+            showLoginForm();
         }
 
         function togglePasswordVisibility() {
@@ -164,7 +161,7 @@
             var savedInst = getSavedInst();
             var savedToken = getSavedSession();
 
-            if (savedInst && savedToken) {
+            if (savedInst === INSTITUTION_ID && savedToken) {
                 openApp(savedInst);
             } else {
                 showLoginForm();
@@ -172,13 +169,13 @@
         });
 
         function performSecureLogin() {
-            var inst = document.getElementById('instId').value.trim().toUpperCase();
+            var inst = INSTITUTION_ID;
             var user = document.getElementById('username').value.trim();
             var key = document.getElementById('licenseKey').value.trim();
             var btn = document.getElementById('loginBtn');
 
-            if (!inst || !user || !key) {
-                showMsg('❌ প্রতিষ্ঠানের আইডি, ইউজারনেম এবং পাসওয়ার্ড সবগুলো সঠিকভাবে দিন।');
+            if (!user || !key) {
+                showMsg('❌ ইউজারনেম এবং পাসওয়ার্ড দুটোই সঠিকভাবে দিন।');
                 return;
             }
 
@@ -196,7 +193,7 @@
                         saveSession(data.session, inst);
                         openApp(inst);
                     } else {
-                        showMsg("❌ " + (data && data.error ? data.error : "ভুল প্রতিষ্ঠান আইডি, ইউজারনেম অথবা পাসওয়ার্ড!"));
+                        showMsg("❌ " + (data && data.error ? data.error : "ভুল ইউজারনেম অথবা পাসওয়ার্ড!"));
                         btn.innerText = "🔑 প্রবেশ করুন";
                         btn.disabled = false;
                     }
